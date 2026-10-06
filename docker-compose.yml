@@ -1,7 +1,7 @@
 services:
   todoappdb:
     build:
-      context: .TodoApp/
+      context: ./TodoApp
       dockerfile: Dockerfile.db
     container_name: todoappdb
     environment:
