@@ -1,6 +1,8 @@
 services:
   todoappdb:
-    image: mariadb:11
+    build:
+      context: .
+      dockerfile: Dockerfile.db
     container_name: todoappdb
     environment:
       MARIADB_ROOT_PASSWORD: sekrit
@@ -8,16 +10,12 @@ services:
       MARIADB_USER: todo_usr
       MARIADB_PASSWORD: letmeinplz
     volumes:
-      - mariadb-data:/var/lib/mysql:Z
-      - ./TodoApp/schema.sql:/docker-entrypoint-initdb.d/schema.sql:Z,ro
-    ports:
-      - "3306:3306"
+      - mariadb-data:/var/lib/mysql
     healthcheck:
       test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
       interval: 5s
       timeout: 5s
       retries: 10
-
   todoapp:
     build:
       context: ./TodoApp
@@ -29,7 +27,7 @@ services:
       ConnectionStrings__TodoDb: "Server=todoappdb;Port=3306;Database=todo_db;User=todo_usr;Password=letmeinplz;"
       ASPNETCORE_ENVIRONMENT: Development
     ports:
-      - "8080:8080"
+      - "8081:8080"
 
 volumes:
   mariadb-data:
