@@ -1,13 +1,13 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Todo List Test";
+    ViewData["Title"] = "Todo List";
 }
 
 <h1>Todo List</h1>
 
 <form method="post" asp-page-handler="Add">
-    <input type="text" name="title" placeholder="New todo..." required />
+    <input type="text" name="title" placeholder="New todo... test polling trigger" required />
     <button type="submit">Add</button>
 </form>
 
