@@ -1,3 +1,8 @@
+properties([
+    disableConcurrentBuilds(),
+    pipelineTriggers([pollSCM('H/2 * * * *')])
+])
+
 node {
     stage('Checkout') {
         checkout scm
